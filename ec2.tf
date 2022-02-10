@@ -30,7 +30,6 @@ resource "aws_launch_template" "t2microTemplateJenk" {
 	 security_groups = [aws_security_group.allowPort80Ingress.id, aws_security_group.allowPort8080Ingress.id, aws_security_group.allowAllEgress.id, aws_security_group.sshAccess.id, aws_security_group.jenkins.id]
 	}
 	key_name = "LoadBalancerPublic2"
-	user_data = filebase64("${path.module}/jenkinsuserdata.sh")
 	tags = {
 		name = "Jenkins"
 	}
