@@ -22,6 +22,36 @@ resource "aws_launch_template" "t2microTemplateServ" {
 	}
 }
 
+
+
+resource "aws_launch_template" "t2microAnsibleTemplate" {
+	image_id = data.aws_ami.amazonLinux.id
+	instance_type = "t2.micro"
+	network_interfaces {
+	 associate_public_ip_address = true
+	 security_groups = [aws_security_group.allowPort80Ingress.id, aws_security_group.inboundFromALB.id, aws_security_group.ansibleServer.id, aws_security_group.allowAllEgress.id, aws_security_group.sshAccess.id, aws_security_group.outboundFromWebServer.id]
+	}
+	key_name = "LoadBalancerPublic2"
+	tags = {
+		name = "Server"
+	}
+}
+
+
+
+resource "aws_launch_template" "t3microMinikube" {
+	image_id = data.aws_ami.amazonLinux.id
+	instance_type = "t3.micro"
+	network_interfaces {
+	 associate_public_ip_address = true
+	 security_groups = [aws_security_group.allowPort80Ingress.id, aws_security_group.inboundFromALB.id, aws_security_group.minikube.id, aws_security_group.allowAllEgress.id, aws_security_group.sshAccess.id, aws_security_group.outboundFromWebServer.id]
+	}
+	key_name = "LoadBalancerPublic2"
+	tags = {
+		name = "Server"
+	}
+}
+
 resource "aws_launch_template" "t2microTemplateJenk" {
 	image_id = data.aws_ami.amazonLinux.id
 	instance_type = "t2.micro"
@@ -46,6 +76,7 @@ resource "aws_autoscaling_group" "frontEndServerScaleGrp" {
 	}
 	vpc_zone_identifier = [aws_subnet.frontEndServer-a.id, aws_subnet.frontEndServer-b.id]
 }
+
 
 resource "aws_autoscaling_group" "jenkinsServerScaleGrp" {
 	desired_capacity = 1
