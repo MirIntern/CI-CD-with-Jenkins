@@ -1,4 +1,4 @@
-resource "aws_security_group" "allowPort80Ingress" {  
+	resource "aws_security_group" "allowPort80Ingress" {  
 
 	vpc_id = aws_vpc.myVPC.id
 
@@ -111,6 +111,18 @@ resource "aws_security_group" "outboundFromWebServer" {
 
 }
 
+
+resource "aws_security_group" "minikube" {
+
+	vpc_id = aws_vpc.myVPC.id
+
+}
+
+resource "aws_security_group" "ansibleServer" {
+
+	vpc_id = aws_vpc.myVPC.id
+
+}
 
 resource "aws_security_group" "webServer" {
 
