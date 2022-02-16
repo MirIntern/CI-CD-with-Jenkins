@@ -1,4 +1,4 @@
-	resource "aws_security_group" "allowPort80Ingress" {  
+resource "aws_security_group" "allowPort80Ingress" {  
 
 	vpc_id = aws_vpc.myVPC.id
 
